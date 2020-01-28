@@ -37,7 +37,7 @@ class RepositoryCollection():
         
     def insertOne(self, entityObject):
         assert isinstance(entityObject, BaseEntity)
-        self.activeCollection.insert_one(entityObject)
+        self.activeCollection.insert_one(entityObject.__dict__)
         
 class BaseEntity(object):
     def __init__(self, **datas):
@@ -50,9 +50,12 @@ class Task(BaseEntity):
         BaseEntity.__init__(self, **datas)
         self.taskData = datas.get("taskData", None)
 
-myTask = Task(taskData = "Hello World")
+
 
 myCollection = RepositoryCollection()
-myCollection.insertOne(myTask)
+
+for i in range(20):
+    myTask = Task(taskData = "Hello World")
+    myCollection.insertOne(myTask)
 
 print (myTask)
