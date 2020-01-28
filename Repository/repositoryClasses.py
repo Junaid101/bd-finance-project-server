@@ -1,8 +1,6 @@
 from pymongo import MongoClient
 import bson
 
-dotenv.load_dotenv()
-
 def newGUID():
     import uuid
     return str(uuid.uuid4())
@@ -11,22 +9,24 @@ def currentUTCDate():
     import datetime
     return datetime.datetime.utcnow()
 
-def getConnectionString():
+def loadEnvironment():
     import dotenv
     import os
     dotenv.load_dotenv()
+
+def getConnectionString():
+    import os
+    loadEnvironment()
     return os.getenv("MONGO_CONN_STRING")
 
 def getDefaultTenant():
-    import dotenv
     import os
-    dotenv.load_dotenv()
+    loadEnvironment()
     return os.getenv("DEFAULT_TENANT")
 
 def getDefaultCollection():
-    import dotenv
     import os
-    dotenv.load_dotenv()
+    loadEnvironment()
     return os.getenv("DEFAULT_COLLECTION")
 
 class RepositoryCollection():
