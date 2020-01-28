@@ -1,1 +1,0 @@
-MONGO_CONN_STRING = r"mongodb+srv://dbUser:dbUserPassword@cluster0-sgpy0.mongodb.net/test?retryWrites=true&w=majority"

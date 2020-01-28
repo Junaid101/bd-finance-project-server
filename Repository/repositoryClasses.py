@@ -1,6 +1,7 @@
 from pymongo import MongoClient
-import bd-finance-project-server.appSettings
 import bson
+
+dotenv.load_dotenv()
 
 def newGUID():
     import uuid
@@ -11,13 +12,27 @@ def currentUTCDate():
     return datetime.datetime.utcnow()
 
 def getConnectionString():
-    import appSettings
-    return appSettings.MONGO_CONN_STRING
+    import dotenv
+    import os
+    dotenv.load_dotenv()
+    return os.getenv("MONGO_CONN_STRING")
+
+def getDefaultTenant():
+    import dotenv
+    import os
+    dotenv.load_dotenv()
+    return os.getenv("DEFAULT_TENANT")
+
+def getDefaultCollection():
+    import dotenv
+    import os
+    dotenv.load_dotenv()
+    return os.getenv("DEFAULT_COLLECTION")
 
 class RepositoryCollection():
-    def __init__(self, collectionName = "Task"):
+    def __init__(self, collectionName = getDefaultCollection()):
         myClient = MongoClient(host = getConnectionString())
-        self.database = myClient["financial_data"]
+        self.database = myClient[getDefaultTenant()]
         self.activeCollection = self.database[collectionName]
         
     def insertOne(self, entityObject):
