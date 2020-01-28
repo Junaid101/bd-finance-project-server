@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import bson
 import dotenv
 import os
+import datetime
 
 loadEnvironment()
 
@@ -39,21 +40,16 @@ class BaseEntity(object):
         self._id = datas.get("_id", newGUID())
         self.createDate = datas.get("_id", currentUTCDate())
         self.lastUpdateDate = datas.get("_id", currentUTCDate())
-    
+
 class Task(BaseEntity):
     def __init__(self, **datas):
         BaseEntity.__init__(self, **datas)
         self.taskData = datas.get("taskData", None)
 
-
-
 myCollection = RepositoryCollection()
 
 for i in range(20):
-    myTask = Task( {
-        "taskData" : "Junaid",
-        "myAge" : 15
-    })
+    myTask = Task()
     myCollection.insertOne(myTask)
 
 print (myTask)
