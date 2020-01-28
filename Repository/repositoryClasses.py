@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from .. import appSettings
+import bd-finance-project-server.appSettings
 import bson
 
 def newGUID():
