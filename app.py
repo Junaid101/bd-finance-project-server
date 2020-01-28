@@ -5,18 +5,26 @@ app = Flask(__name__)
 from dotenv import load_dotenv
 load_dotenv()
 
-# OR, the same with increased verbosity
-load_dotenv(verbose=True)
-
-# OR, explicitly providing path to '.env'
-from pathlib import Path  # python3 only
-env_path = Path('.') / '.env'
-load_dotenv(dotenv_path=env_path)
-
-
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
 
+def
+
 if __name__ == '__main__':
     app.run()
+
+from flask import Flask
+from flask_restful import Resource, Api
+
+app = Flask(__name__)
+api = Api(app)
+
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+api.add_resource(HelloWorld, '/')
+
+if __name__ == '__main__':
+    app.run(debug=True)

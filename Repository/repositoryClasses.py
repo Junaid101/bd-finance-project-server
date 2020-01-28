@@ -1,32 +1,27 @@
 from pymongo import MongoClient
 import bson
+import dotenv
+import os
+
+loadEnvironment()
 
 def newGUID():
     import uuid
     return str(uuid.uuid4())
 
 def currentUTCDate():
-    import datetime
     return datetime.datetime.utcnow()
 
 def loadEnvironment():
-    import dotenv
-    import os
     dotenv.load_dotenv()
 
 def getConnectionString():
-    import os
-    loadEnvironment()
     return os.getenv("MONGO_CONN_STRING")
 
 def getDefaultTenant():
-    import os
-    loadEnvironment()
     return os.getenv("DEFAULT_TENANT")
 
 def getDefaultCollection():
-    import os
-    loadEnvironment()
     return os.getenv("DEFAULT_COLLECTION")
 
 class RepositoryCollection():
@@ -55,7 +50,10 @@ class Task(BaseEntity):
 myCollection = RepositoryCollection()
 
 for i in range(20):
-    myTask = Task(taskData = "Hello World")
+    myTask = Task( {
+        "taskData" : "Junaid",
+        "myAge" : 15
+    })
     myCollection.insertOne(myTask)
 
 print (myTask)
